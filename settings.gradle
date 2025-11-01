@@ -1,0 +1,8 @@
+include('app', 'api', 'service', 'repository', 'common')
+
+rootProject.name = projectName
+project(':app').name = projectName + "-app"
+project(':api').name = projectName + "-api"
+project(':service').name = projectName + "-service"
+project(':repository').name = projectName + "-repo"
+project(':common').name = projectName + "-common"

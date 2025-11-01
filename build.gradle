@@ -1,0 +1,122 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    alias(libs.plugins.lombok) apply false
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.test.pretty.log) apply false
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jar {
+    enabled = false
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url = 'https://repo.spring.io/milestone'
+        }
+    }
+}
+
+subprojects {
+
+    var libs = rootProject.libs
+    var lombok = libs.plugins.lombok.get().pluginId
+    var spotless = libs.plugins.spotless.get().pluginId
+    var prettyTest = libs.plugins.test.pretty.log.get().pluginId
+
+    apply {
+        plugin 'java'
+        plugin 'jacoco'
+        plugin lombok
+        plugin spotless
+        plugin prettyTest
+    }
+
+    dependencies {
+        implementation platform(libs.spring.cloud.platform)
+        implementation platform(libs.spring.boot.starter.platform)
+        implementation platform(libs.jackson.platform)
+        implementation(libs.bundles.all.projects)
+
+        testImplementation platform(libs.junit.jupiter.platform)
+        testImplementation(libs.bundles.junit.spring.test)
+        testRuntimeOnly(
+                libs.junit.jupiter.engine,
+                libs.junit.platform.launcher
+        )
+    }
+
+    processResources.duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+
+    ext {
+        unitTestMinimumCoverage = 0.00
+        unitTestExclude = []
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        finalizedBy(jacocoTestCoverageVerification)
+        reports {
+            xml.required = true
+            csv.required = false
+            html.required = true
+            html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        }
+        afterEvaluate {
+            getClassDirectories().setFrom(classDirectories.files.collect {
+                fileTree(dir: it, exclude: unitTestExclude)
+            })
+        }
+
+
+        jacocoTestCoverageVerification {
+            afterEvaluate {
+                getClassDirectories().setFrom(classDirectories.files.collect {
+                    fileTree(dir: it, exclude: unitTestExclude)
+                })
+            }
+
+            violationRules {
+                rule {
+                    limit {
+                        minimum = unitTestMinimumCoverage
+                    }
+                }
+            }
+        }
+
+        check {
+            dependsOn(spotlessCheck)
+            finalizedBy(jacocoTestReport)
+        }
+
+    }
+}
+
+var googleJavaFormatToolVersion = libs.versions.google.java.format.tool.get()
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        removeUnusedImports()
+        googleJavaFormat("${googleJavaFormatToolVersion}")
+        trimTrailingWhitespace()
+    }
+}

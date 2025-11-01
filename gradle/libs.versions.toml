@@ -1,0 +1,56 @@
+[versions]
+apache-commons-collection = "4.5.0"
+apache-commons-text = "1.14.0"
+google-java-format-tool="1.28.0"
+jackson="2.20.0"
+junit-jupiter = "5.13.4"
+junit-platform = "1.13.4"
+lombok-gradle-plugin = "8.14.2"
+spotless-plugin="7.2.1"
+spring-boot = "3.5.5"
+spring-cloud = "2025.0.0"
+spring-cloud-aws = "3.4.0"
+test-logger-plugin="4.0.0"
+
+[libraries]
+
+# Jackson
+jackson-platform = {module="com.fasterxml.jackson:jackson-bom", version.ref = "jackson"}
+
+# Spring Boot and AWS
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-platform = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-cloud-platform = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+
+# Utils
+apache-commons-text = { module = "org.apache.commons:commons-text", version.ref = "apache-commons-text" }
+apache-commons-collections = { module = "org.apache.commons:commons-collections4", version.ref = "apache-commons-collection" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
+
+# Testing
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref="junit-platform"}
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api"}
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine"}
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params"}
+junit-jupiter-platform = { module = "org.junit:junit-bom", version.ref = "junit-jupiter" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+
+
+
+[bundles]
+all-projects = [ "apache-commons-text", "apache-commons-collections",
+    "jackson-annotations", "jackson-core", "jackson-databind", "spring-boot-starter-validation", "spring-boot-starter-web"]
+app-project = ["spring-boot-starter-actuator"]
+junit-spring-test = ["spring-boot-starter-test", "junit-jupiter-api", "junit-jupiter-params"]
+
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok-gradle-plugin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
+test-pretty-log = { id = "com.adarshr.test-logger", version.ref = "test-logger-plugin" }

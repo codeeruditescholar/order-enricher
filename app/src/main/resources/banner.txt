@@ -1,0 +1,3 @@
+${AnsiColor.BLUE}
+Order Enricher Service
+${AnsiColor.DEFAULT}
