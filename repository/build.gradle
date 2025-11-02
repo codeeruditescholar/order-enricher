@@ -1,0 +1,8 @@
+dependencies {
+    implementation(
+            project(':order-enricher-common')
+    )
+    runtimeOnly(
+            ['org.postgresql:postgresql']
+    )
+}

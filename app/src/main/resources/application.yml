@@ -1,4 +1,7 @@
 spring:
+  config:
+    import:
+      - repository.yml
   threads:
     virtual:
       enabled: true

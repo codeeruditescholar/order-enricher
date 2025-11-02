@@ -3,7 +3,9 @@ package com.order.enricher.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
 
+@Jacksonized
 @Getter
 @Builder
 @RequiredArgsConstructor

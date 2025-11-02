@@ -8,14 +8,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 
-@Getter
 @Jacksonized
+@Getter
 @Builder
 @RequiredArgsConstructor
-public class Order {
+public class CustomerOrderRequest {
 
-  private final UUID id;
-  private final Customer customer;
-  private final List<Product> products;
+  private final UUID orderId;
+  private final UUID customerId;
+  private final List<UUID> productIds;
   private final LocalDateTime timestamp;
 }

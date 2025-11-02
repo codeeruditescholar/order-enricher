@@ -4,11 +4,13 @@ import com.order.enricher.domain.ErrorResponse;
 import com.order.enricher.domain.exception.CustomerNotFoundException;
 import com.order.enricher.domain.exception.ProductNotFoundException;
 import java.time.LocalDateTime;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Slf4j
 @RestControllerAdvice
 public class APIExceptionHandler {
 
@@ -28,6 +30,7 @@ public class APIExceptionHandler {
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleEverything(Exception ex) {
+    log.error(ex.getMessage(), ex);
     ErrorResponse errorResponse =
         ErrorResponse.builder().message(ex.getMessage()).timestamp(LocalDateTime.now()).build();
     return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
