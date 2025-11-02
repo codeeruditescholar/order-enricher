@@ -1,0 +1,28 @@
+meta {
+  name: Missing Customer - Create Order
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/orders
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "orderId": "123e4567-e89b-12d3-a456-426614174000",
+    "customerId": "987fcdeb-51a2-43c1-9012-345678901234",
+    "productIds": [
+      "11111111-1111-1111-1111-111111111111"
+    ],
+    "timestamp": "2025-11-01T14:30:00"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

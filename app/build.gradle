@@ -4,7 +4,12 @@ plugins {
 
 dependencies {
     implementation(
-            libs.bundles.app.project
+            libs.bundles.app.project,
+            project(':order-enricher-common'),
+            project(':order-enricher-repo'),
+            project(':order-enricher-adapter'),
+            project(':order-enricher-service'),
+            project(':order-enricher-api')
     )
 }
 

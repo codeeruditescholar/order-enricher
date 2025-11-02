@@ -1,5 +1,7 @@
 dependencies {
     implementation(
+            project(':order-enricher-common'),
+            project(':order-enricher-service'),
             libs.spring.boot.starter.web,
     )
 }

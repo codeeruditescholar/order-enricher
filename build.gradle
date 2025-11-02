@@ -63,7 +63,7 @@ subprojects {
     }
 
     ext {
-        unitTestMinimumCoverage = 0.00
+        unitTestMinimumCoverage = 0.55
         unitTestExclude = []
     }
 
