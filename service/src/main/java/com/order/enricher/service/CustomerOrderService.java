@@ -6,8 +6,11 @@ import com.order.enricher.domain.Customer;
 import com.order.enricher.domain.CustomerOrder;
 import com.order.enricher.domain.CustomerOrderRequest;
 import com.order.enricher.domain.Product;
+import com.order.enricher.domain.exception.OrderAlreadyExistException;
+import com.order.enricher.domain.exception.OrderNotFoundException;
 import com.order.enricher.repository.CustomerOrderRepository;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +27,9 @@ public class CustomerOrderService {
 
   @Transactional(rollbackFor = Exception.class)
   public CustomerOrder createOrder(final CustomerOrderRequest orderRequest) {
-    // TODO validate existing order before creating new
+    if (customerOrderRepository.findById(orderRequest.getOrderId()).isPresent()) {
+      throw new OrderAlreadyExistException(orderRequest.getOrderId());
+    }
     // TODO use redis cache to load products and customers when not mocked data
     List<Product> products = productClient.fetchProductsByIds(orderRequest.getProductIds());
     Customer customer = customerClient.fetchCustomerById(orderRequest.getCustomerId());
@@ -40,5 +45,11 @@ public class CustomerOrderService {
     customerOrderRepository.save(enrichedOrder);
 
     return enrichedOrder;
+  }
+
+  public CustomerOrder fetchOrderById(final UUID orderId) {
+    return customerOrderRepository
+        .findById(orderId)
+        .orElseThrow(() -> new OrderNotFoundException(orderId));
   }
 }

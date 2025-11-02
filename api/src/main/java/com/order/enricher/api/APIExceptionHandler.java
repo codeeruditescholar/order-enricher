@@ -2,6 +2,8 @@ package com.order.enricher.api;
 
 import com.order.enricher.domain.ErrorResponse;
 import com.order.enricher.domain.exception.CustomerNotFoundException;
+import com.order.enricher.domain.exception.OrderAlreadyExistException;
+import com.order.enricher.domain.exception.OrderNotFoundException;
 import com.order.enricher.domain.exception.ProductNotFoundException;
 import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,20 @@ public class APIExceptionHandler {
     ErrorResponse errorResponse =
         ErrorResponse.builder().message(ex.getMessage()).timestamp(LocalDateTime.now()).build();
     return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(OrderAlreadyExistException.class)
+  public ResponseEntity<ErrorResponse> handle(OrderAlreadyExistException ex) {
+    ErrorResponse errorResponse =
+        ErrorResponse.builder().message(ex.getMessage()).timestamp(LocalDateTime.now()).build();
+    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(OrderNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handle(OrderNotFoundException ex) {
+    ErrorResponse errorResponse =
+        ErrorResponse.builder().message(ex.getMessage()).timestamp(LocalDateTime.now()).build();
+    return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(Exception.class)
