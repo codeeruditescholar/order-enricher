@@ -19,7 +19,8 @@ public class MockCustomerClient implements CustomerClient {
 
   // NOTE: For transparency I have used AI to generate the following mock data
 
-  static final UUID CUSTOMER_ID_JOHN_DOE = UUID.fromString("a1b2c3d4-e5f6-4a5b-8c9d-1e2f3a4b5c6d");
+  public static final UUID CUSTOMER_ID_JOHN_DOE =
+      UUID.fromString("a1b2c3d4-e5f6-4a5b-8c9d-1e2f3a4b5c6d");
   static final UUID CUSTOMER_ID_JANE_SMITH =
       UUID.fromString("b2c3d4e5-f6a7-5b6c-9d0e-2f3a4b5c6d7e");
   static final UUID CUSTOMER_ID_ROBERT_JOHNSON =

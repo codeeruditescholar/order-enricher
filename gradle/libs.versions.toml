@@ -10,7 +10,6 @@ lombok-gradle-plugin = "8.14.2"
 spotless-plugin="7.2.1"
 spring-boot = "3.5.5"
 spring-cloud = "2025.0.0"
-test-logger-plugin="4.0.0"
 
 [libraries]
 
@@ -54,4 +53,3 @@ junit-spring-test = ["spring-boot-starter-test", "junit-jupiter-api", "junit-jup
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 lombok = { id = "io.freefair.lombok", version.ref = "lombok-gradle-plugin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless-plugin" }
-test-pretty-log = { id = "com.adarshr.test-logger", version.ref = "test-logger-plugin" }

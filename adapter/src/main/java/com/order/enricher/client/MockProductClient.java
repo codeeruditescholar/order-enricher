@@ -19,9 +19,9 @@ public class MockProductClient implements ProductClient {
 
   // NOTE: For transparency I have used AI here as well to generate the following mock data
 
-  static final UUID PRODUCT_ID_WIRELESS_MOUSE =
+  public static final UUID PRODUCT_ID_WIRELESS_MOUSE =
       UUID.fromString("11111111-1111-1111-1111-111111111111");
-  static final UUID PRODUCT_ID_MECHANICAL_KEYBOARD =
+  public static final UUID PRODUCT_ID_MECHANICAL_KEYBOARD =
       UUID.fromString("22222222-2222-2222-2222-222222222222");
   static final UUID PRODUCT_ID_USB_C_CABLE =
       UUID.fromString("33333333-3333-3333-3333-333333333333");

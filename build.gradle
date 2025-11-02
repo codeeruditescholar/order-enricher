@@ -3,7 +3,6 @@ plugins {
     id 'jacoco'
     alias(libs.plugins.lombok) apply false
     alias(libs.plugins.spotless)
-    alias(libs.plugins.test.pretty.log) apply false
 }
 
 java {
@@ -31,14 +30,12 @@ subprojects {
     var libs = rootProject.libs
     var lombok = libs.plugins.lombok.get().pluginId
     var spotless = libs.plugins.spotless.get().pluginId
-    var prettyTest = libs.plugins.test.pretty.log.get().pluginId
 
     apply {
         plugin 'java'
         plugin 'jacoco'
         plugin lombok
         plugin spotless
-        plugin prettyTest
     }
 
     dependencies {
