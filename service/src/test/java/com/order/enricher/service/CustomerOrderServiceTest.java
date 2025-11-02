@@ -27,7 +27,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-// NOTE: Used AI to generate and cleaned up and made sense to it
+// NOTE: For transparency I have used AI here to generate and then spent some time to clean up
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("CustomerOrderService Tests")
