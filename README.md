@@ -19,6 +19,66 @@ Order Enricher is a backend service designed to enrich order data by fetching cu
 - JSONB storage for flexible customer and product snapshots
 - Virtual threads for improved performance
 
+## Project Structure
+
+```
+order-enricher/
+│
+├── adapter/               # External adapters (future integrations)
+│
+├── api/                   # REST controllers and exception handlers
+│   ├── src/
+│   │   ├── main/java/
+│   │   └── test/java/
+│   └── build.gradle
+│
+├── app/                   # Main application and configuration
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/     # Application entry point
+│   │   │   └── resources/ # application.yml
+│   │   └── test/
+│   └── build.gradle
+│
+├── brunoCollection/       # API testing collection
+│   ├── Create Order.bru
+│   ├── Get Order.bru
+│   ├── Health Check.bru
+│   └── ...
+│
+├── common/                # Domain models and DTOs
+│   ├── src/
+│   │   ├── main/java/
+│   │   │   └── domain/   # CustomerOrder, Customer, Product, etc.
+│   │   └── test/
+│   └── build.gradle
+│
+├── repository/            # Database repositories
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/     # JPA repositories
+│   │   │   └── resources/ # repository.yml (DB config)
+│   │   └── test/
+│   └── build.gradle
+│
+├── service/               # Business logic
+│   ├── src/
+│   │   ├── main/java/    # CustomerOrderService
+│   │   └── test/
+│   └── build.gradle
+│
+├── gradle/                # Gradle wrapper files
+│
+├── .gitignore
+├── build.gradle           # Root build configuration
+├── Dockerfile             # Docker image definition
+├── gradlew                # Gradle wrapper script (Unix)
+├── gradlew.bat            # Gradle wrapper script (Windows)
+├── README.md              # This file
+└── settings.gradle        # Gradle project settings
+
+```
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -145,8 +205,8 @@ sh curl [http://localhost:8080/actuator/health](http://localhost:8080/actuator/h
 
 **Response:**
 
-```
-json { "status": "UP" }
+```json
+ { "status": "UP" }
 
 ```
 
@@ -260,17 +320,7 @@ View coverage report:
 open build/jacocoHtml/index.html
 ```
 
-## Project Structure
 
-order-enricher/
-├── adapter/ # External adapters (future integrations)
-├── api/ # REST controllers and exception handlers
-├── app/ # Main application and configuration
-├── brunoCollection/ # API testing collection
-├── common/ # Domain models and DTOs
-├── repository/ # Database repositories
-├── service/ # Business logic
-└── gradle/ # Gradle wrapper files
 
 ## Additional Information
 
@@ -279,13 +329,3 @@ order-enricher/
 - **Logging:** Console output, SQL queries visible in development
 - **Virtual Threads:** Enabled for improved concurrency
 - **Health Endpoint:** `/actuator/health`
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
